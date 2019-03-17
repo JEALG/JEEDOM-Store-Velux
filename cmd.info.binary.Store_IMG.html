@@ -1,0 +1,38 @@
+<div style="padding:0;width:98px;min-height:90px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="binary" data-cmd_id="#id#" data-cmd_uid="#uid#" data-eqLogic_id="#eqLogic_id#" data-eqLogic_id="#eqLogic_id#" title="#collectDate#">
+	<!-- Info Widget
+		Basé sur les widget de 	: rosty
+		Mise à jour 		: JAG 20190317 : ajout centrer widget (merci à Antoinekl1)
+	-->
+	<center>
+	<div class="row">
+		<div class="cmdName" id="cmdName#id#" style="font-weight: bold;font-size : 10px; #hideCmdName#;">#name_display#</div>
+		<div class="iconCmd#uid#"></div>
+	</div>
+	</center>
+	<script>
+		jeedom.cmd.update['#id#'] = function(_options){
+          	 // Options de personnalisation avec valeur par defaut 
+               // Paramètrage du logo
+                  // Valeur pour ON ou 1
+                      var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
+                  // Valeur pour OFF ou 0
+                      var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
+               // Paramètre "sizehw" : à déclarer en pixels - 80 maxi
+                      var srcImgHeight 	= (is_numeric('#sizeh#')) ? parseFloat('#sizeh#') : 90;
+                      var srcImgWidth	= (is_numeric('#sizew#')) ? parseFloat('#sizew#') : 90;
+              // Paramétrage des images
+                      var srcImgURL 	= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG/';
+                      var srcImgOn 		= srcImgURL + srcImglogoON +'.png'; 	// Pour Valeur = 1
+                      var srcImgOff 	= srcImgURL + srcImglogoOFF +'.png';  	// Pour valeur = 0   
+          
+			$(".iconCmd#uid#").empty();
+			if (parseInt(_options.display_value) == 1) {
+				$(".iconCmd#uid#").append('<img src="'+srcImgOn+'" style="height:' + srcImgHeight +'px;width:' + srcImgWidth +'px;">');
+			} else {
+				$(".iconCmd#uid#").append('<img src="'+srcImgOff+'" style="height:' + srcImgHeight +'px;width:' + srcImgWidth +'px;">');
+			}
+			$('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
+		}
+		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+	</script>
+</div>
