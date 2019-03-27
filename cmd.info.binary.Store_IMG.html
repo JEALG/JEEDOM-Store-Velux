@@ -1,13 +1,16 @@
 <div style="padding:0;width:98px;min-height:90px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="binary" data-cmd_id="#id#" data-cmd_uid="#uid#" data-eqLogic_id="#eqLogic_id#" data-eqLogic_id="#eqLogic_id#" title="#collectDate#">
 	<!-- Info Widget
 		Basé sur les widget de 	: rosty
-		Mise à jour 		: JAG 20190317 : ajout centrer widget (merci à Antoinekl1)
+		Mise à jour 				: JAG 20190327 : Amélioration code Ajout variable pour définir l'extension du fichier (merci à fishes)
 	-->
 	<center>
 	<div class="row">
 		<center>
 		<div class="cmdName" id="cmdName#id#" style="font-weight: bold;font-size : 10px; #hideCmdName#;">#name_display#</div>
 		<div class="iconCmd#uid#"></div>
+		<div style="font-weight: bold;font-size : 10px;">
+      		<span class="timeCmd#id# timeCmd label-info" ></span>
+      	</div>
 		</center>
 	</div>
 	</center>
@@ -16,16 +19,20 @@
           	 // Options de personnalisation avec valeur par defaut 
                // Paramètrage du logo
                   // Valeur pour ON ou 1
-                      var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
+                      	var srcImglogoON		= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
+					  	var srcImglogoON_T 	= ('#logoON_type#'!='#'+'logoON_type#') ? "#logoON_type#" : "png";
                   // Valeur pour OFF ou 0
-                      var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
+                      	var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
+					  	var srcImglogoOFF_T 	= ('#logoOFF_type#'!='#'+'logoOFF_type#') ? "#logoOFF_type#" : "png";
                // Paramètre "sizehw" : à déclarer en pixels - 80 maxi
-                      var srcImgHeight 	= (is_numeric('#sizeh#')) ? parseFloat('#sizeh#') : 90;
-                      var srcImgWidth	= (is_numeric('#sizew#')) ? parseFloat('#sizew#') : 90;
+                      	var srcImgHeight 	= (is_numeric('#sizeh#')) ? parseFloat('#sizeh#') : 90;
+					  	var srcImgWidth		= (is_numeric('#sizew#')) ? parseFloat('#sizew#') : 90;
+              // Affichage durée changement dernier etat
+          				var srcImglogoTime	= ('#logoTime#'!='#'+'logoTime#') 	? "#logoTime#": ""
               // Paramétrage des images
-                      var srcImgURL 	= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG/';
-                      var srcImgOn 		= srcImgURL + srcImglogoON +'.png'; 	// Pour Valeur = 1
-                      var srcImgOff 	= srcImgURL + srcImglogoOFF +'.png';  	// Pour valeur = 0   
+                      	var srcImgURL 		= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG/';
+					  	var srcImgOn 		= srcImgURL + srcImglogoON +'.'+ srcImglogoON_T; 	// Pour Valeur = 1
+					  	var srcImgOff 		= srcImgURL + srcImglogoOFF +'.'+ srcImglogoOFF_T;  	// Pour valeur = 0      
           
 			$(".iconCmd#uid#").empty();
 			if (parseInt(_options.display_value) == 1) {
@@ -34,6 +41,10 @@
 				$(".iconCmd#uid#").append('<img src="'+srcImgOff+'" style="height:' + srcImgHeight +'px;width:' + srcImgWidth +'px;">');
 			}
 			$('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
+				// Derniere durée changement dernier etat
+					if (srcImglogoTime == "X") {
+  						jeedom.cmd.displayDuration(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#id#'));
+      				}
 		}
 		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
 	</script>
