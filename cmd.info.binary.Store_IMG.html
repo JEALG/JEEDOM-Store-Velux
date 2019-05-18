@@ -1,51 +1,66 @@
 <div style="padding:0;width:98px;min-height:90px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="binary" data-cmd_id="#id#" data-cmd_uid="#uid#" data-eqLogic_id="#eqLogic_id#" data-eqLogic_id="#eqLogic_id#" title="#collectDate#">
-	<!-- Info Widget
-		Basé sur les widget de 	: rosty
-		Mise à jour 				: JAG 20190327 : Amélioration code Ajout variable pour définir l'extension du fichier (merci à fishes)
+    <!-- Info Widget
+        Basé sur les widget de 	: rosty
+        Mise à jour 			: JAG 201900518 : Nettoyage du code
 	-->
-	<center>
-	<div class="row">
-		<center>
-		<div class="cmdName" id="cmdName#id#" style="font-weight: bold;font-size : 10px; #hideCmdName#;">#name_display#</div>
-		<div class="iconCmd#uid#"></div>
-		<div style="font-weight: bold;font-size : 10px;">
-      		<span class="timeCmd#id# timeCmd label-info" ></span>
-      	</div>
-		</center>
-	</div>
-	</center>
-	<script>
-		jeedom.cmd.update['#id#'] = function(_options){
-          	 // Options de personnalisation avec valeur par defaut 
-               // Paramètrage du logo
-                  // Valeur pour ON ou 1
-                      	var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
-					  	var srcImglogoON_T 	= ('#logoON_type#'!='#'+'logoON_type#') ? "#logoON_type#" : "png";
-                  // Valeur pour OFF ou 0
-                      	var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
-					  	var srcImglogoOFF_T = ('#logoOFF_type#'!='#'+'logoOFF_type#') ? "#logoOFF_type#" : "png";
-               // Paramètre "sizehw" : à déclarer en pixels - 80 maxi
-                      	var srcImgHeight 	= (is_numeric('#sizeh#')) ? parseFloat('#sizeh#') : 90;
-					  	var srcImgWidth		= (is_numeric('#sizew#')) ? parseFloat('#sizew#') : 90;
-              // Affichage durée changement dernier etat
-          				var srcImglogoTime	= ('#logoTime#'!='#'+'logoTime#') 	? "#logoTime#": ""
-              // Paramétrage des images
-                      	var srcImgURL 		= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG/';
-					  	var srcImgOn 		= srcImgURL + srcImglogoON +'.'+ srcImglogoON_T; 	// Pour Valeur = 1
-					  	var srcImgOff 		= srcImgURL + srcImglogoOFF +'.'+ srcImglogoOFF_T;  	// Pour valeur = 0      
-          
-			$(".iconCmd#uid#").empty();
-			if (parseInt(_options.display_value) == 1) {
-				$(".iconCmd#uid#").append('<img src="'+srcImgOn+'" style="height:' + srcImgHeight +'px;width:' + srcImgWidth +'px;">');
-			} else {
-				$(".iconCmd#uid#").append('<img src="'+srcImgOff+'" style="height:' + srcImgHeight +'px;width:' + srcImgWidth +'px;">');
-			}
-			$('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
-				// Derniere durée changement dernier etat
-					if (srcImglogoTime == "X") {
-  						jeedom.cmd.displayDuration(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#id#'));
-      				}
-		}
-		jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
-	</script>
+    <div class="title #hide_name#">
+        <div class="cmdName">#name_display#</div>
+    </div>
+        <div class="content-sm ">
+            <span class="iconCmd#id#"></span>
+    </div>
+    <div class="value">
+        <span class="timeCmd#id# timeCmd label label-default value"></span>
+    </div>
+    <script> 
+	   jeedom.cmd.update['#id#'] = function(_options){
+		  // Paramètrage du logo
+            // Valeur pour ON ou 1
+                var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
+                var srcImglogoON_T 	= ('#logoON_type#'!='#'+'logoON_type#') ? "#logoON_type#" : "png";
+            // Valeur pour OFF ou 1
+                var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
+                var srcImglogoOFF_T = ('#logoOFF_type#'!='#'+'logoOFF_type#') ? "#logoOFF_type#" : "png";
+		  // Paramètrage du logo pour Erreur	
+                var srcImglogoER	= ('#logoER#'!='#'+'logoER#') ? "#logoER#": "oups";
+                var srcImglogoER_T 	= ('#logoER_type#'!='#'+'logoER_type#') ? "#logoER_type#": "png";
+		  // Paramètre "sizeh" & "sizew"
+                var srcImgHeight	= is_numeric('#sizeh#') ? parseFloat('#sizeh#'):90;
+                var srcImgWidth 	= is_numeric('#sizew#') ? parseFloat('#sizew#'):90;
+                var srcImgSize 		= 'height='+srcImgHeight+'px width='+srcImgWidth+'px';
+		  // Paramétrage des images
+                var srcImgURL 		= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG';
+                var srcImgOn 		= srcImgURL +srcImglogoON+"."+srcImglogoON_T;     // Pour Valeur = 1
+                var srcImgOff 		= srcImgURL +srcImglogoOFF+"."+srcImglogoOFF_T;    //  Pour valeur = 0
+                var srcImgError 	= srcImgURL +srcImglogoER+"."+srcImglogoER_T;      //  Pour valeur = Erreur
+		  // Affichage durée changement dernier etat
+                var srcImglogoTime = '#logoTime#';
+                var srcImgPath;
+        
+        if (_options.display_value == '1') {
+                $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgOn+'" '+srcImgSize+'>');
+        }else if (_options.display_value == '0') {
+            $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgOff+'" '+srcImgSize+'>');
+        }else {
+            $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgError+'" '+srcImgSize+'>');
+        }
+      
+		// Derniere durée changement dernier etat
+			//Merci @Salvialf pour le code
+			if (srcImglogoTime == "duree") {
+				jeedom.cmd.displayDuration(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#id#'));
+			} else if (srcImglogoTime == "date") {
+				var srcdate = new Date(_options.valueDate);
+				var srcformat = $.datepicker.formatDate('D dd/mm', srcdate);
+				var srctime = "à "+srcdate.getHours()+":"+(srcdate.getMinutes()<10?'0':'')+srcdate.getMinutes();
+				$('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(srcformat+'<br>'+srctime);
+			} else if (srcImglogoTime == "heure") {
+				var srcdate = new Date(_options.valueDate);
+				var srctime = "à "+srcdate.getHours()+":"+(srcdate.getMinutes()<10?'0':'')+srcdate.getMinutes()+":"+(srcdate.getSeconds()<10?'0':'')+srcdate.getSeconds()+"";
+				$('.cmd[data-cmd_id=#id#] .timeCmd#id#').empty().html(srctime);
+			};
+		$('.cmd[data-cmd_id=#id#]').attr('title','Valeur du '+_options.valueDate+', collectée le '+_options.collectDate);
+	} 
+	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+</script>
 </div>
