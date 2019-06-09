@@ -1,16 +1,16 @@
 <div style="padding:0;width:98px;min-height:90px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="binary" data-cmd_id="#id#" data-cmd_uid="#uid#" data-eqLogic_id="#eqLogic_id#" data-eqLogic_id="#eqLogic_id#" title="#collectDate#">
     <!-- Info Widget
         Basé sur les widget de 	: rosty
-        Mise à jour 			: JAG 201900518 : Nettoyage du code
+        Mise à jour 			: JAG 20190609 Correction Bug lien image
 	-->
     <div class="title #hide_name#">
         <div class="cmdName" style="#hideCmdName#">#name_display#</div>
     </div>
         <div class="content-sm ">
-            <span class="iconCmd#id#"></span>
+            <span class="iconCmd#uid#"></span>
     </div>
     <div style="font-weight: bold;font-size : 10px;">
-        <span class="timeCmd#id#" ></span>
+        <span class="timeCmd#id# timeCmd label label-default value"></span>
     </div>
     <script> 
 	   jeedom.cmd.update['#id#'] = function(_options){
@@ -30,19 +30,16 @@
                 var srcImgSize 		= 'height='+srcImgHeight+'px width='+srcImgWidth+'px';
 		  // Paramétrage des images
                 var srcImgURL 		= 'plugins/widget/core/template/dashboard/cmd.info.binary.Store_IMG/';
-                var srcImgOn 		= srcImgURL +srcImglogoON+"."+srcImglogoON_T;     // Pour Valeur = 1
-                var srcImgOff 		= srcImgURL +srcImglogoOFF+"."+srcImglogoOFF_T;    //  Pour valeur = 0
-                var srcImgError 	= srcImgURL +srcImglogoER+"."+srcImglogoER_T;      //  Pour valeur = Erreur
 		  // Affichage durée changement dernier etat
                 var srcImglogoTime  = '#logoTime#';
                 var srcImgPath;
         
         if (_options.display_value == '1') {
-                $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgOn+'" '+srcImgSize+'>');
+            $('.cmd[data-cmd_id=#id#] .iconCmd#uid#').empty().append('<img src="'+srcImgURL +srcImglogoON +'.'+ srcImglogoON_T+'" '+srcImgSize+'>');
         }else if (_options.display_value == '0') {
-            $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgOff+'" '+srcImgSize+'>');
+            $('.cmd[data-cmd_id=#id#] .iconCmd#uid#').empty().append('<img src="'+srcImgURL +srcImglogoOFF +'.'+ srcImglogoOFF_T+'" '+srcImgSize+'>');
         }else {
-            $('.cmd[data-cmd_id=#id#] .iconCmd#id#').empty().append('<img src="'+srcImgError+'" '+srcImgSize+'>');
+            $('.cmd[data-cmd_id=#id#] .iconCmd#uid#').empty().append('<img src="'+srcImgURL +srcImglogoER +'.'+ srcImglogoER_T+'" '+srcImgSize+'>');
         }
       
 		// Derniere durée changement dernier etat
