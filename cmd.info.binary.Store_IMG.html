@@ -1,7 +1,7 @@
 <div style="width:98px;min-height:90px;" class="cmd #history# tooltips cmd-widget" data-type="info" data-subtype="binary" data-cmd_id="#id#" data-cmd_uid="#uid#" data-eqLogic_id="#eqLogic_id#" data-eqLogic_id="#eqLogic_id#" title="#collectDate#">
     <!-- Info Widget
         Basé sur les widget de 	: rosty
-        Mise à jour 			: JAG 20190609 Correction Bug lien image
+        Mise à jour 			: JAG 20190907 : Normalisation nom images => Merci à mich0111
 	-->
     <div class="title #hide_name#">
         <div class="cmdName" style="#hideCmdName#">#name_display#</div>
@@ -16,13 +16,13 @@
 	   jeedom.cmd.update['#id#'] = function(_options){
 		  // Paramètrage du logo
             // Valeur pour ON ou 1
-                var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "StoreClose";
+                var srcImglogoON	= ('#logoON#'!='#'+'logoON#') ? "#logoON#" : "store_off";
                 var srcImglogoON_T 	= ('#logoON_type#'!='#'+'logoON_type#') ? "#logoON_type#" : "png";
             // Valeur pour OFF ou 1
-                var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "StoreOpen";
+                var srcImglogoOFF	= ('#logoOFF#'!='#'+'logoOFF#') ? "#logoOFF#" : "store_on";
                 var srcImglogoOFF_T = ('#logoOFF_type#'!='#'+'logoOFF_type#') ? "#logoOFF_type#" : "png";
 		  // Paramètrage du logo pour Erreur	
-                var srcImglogoER	= ('#logoER#'!='#'+'logoER#') ? "#logoER#": "oups";
+                var srcImglogoER	= ('#logoER#'!='#'+'logoER#') ? "#logoER#": "er_oups1";
                 var srcImglogoER_T 	= ('#logoER_type#'!='#'+'logoER_type#') ? "#logoER_type#": "png";
 		  // Paramètre "sizeh" & "sizew"
                 var srcImgHeight	= is_numeric('#sizeh#') ? parseFloat('#sizeh#'):90;
